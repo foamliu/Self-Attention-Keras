@@ -37,6 +37,7 @@ O_seq = Dropout(0.5)(O_seq)
 outputs = Dense(num_classes, activation='softmax')(O_seq)
 
 model = Model(inputs=S_inputs, outputs=outputs)
+print(model.summary())
 # try using different optimizers and different optimizer configs
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
