@@ -8,6 +8,7 @@ from attention import Position_Embedding, Attention
 max_features = 20000
 maxlen = 80
 batch_size = 32
+num_classes = 46
 
 print('Loading data...')
 (x_train, y_train), (x_test, y_test) = reuters.load_data(num_words=max_features)
@@ -29,7 +30,7 @@ embeddings = Position_Embedding()(embeddings)  # 增加Position_Embedding能轻�
 O_seq = Attention(8, 16)([embeddings, embeddings, embeddings])
 O_seq = GlobalAveragePooling1D()(O_seq)
 O_seq = Dropout(0.5)(O_seq)
-outputs = Dense(1, activation='sigmoid')(O_seq)
+outputs = Dense(num_classes, activation='softmax')(O_seq)
 
 model = Model(inputs=S_inputs, outputs=outputs)
 # try using different optimizers and different optimizer configs
