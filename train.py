@@ -3,7 +3,7 @@ from __future__ import print_function
 from keras.datasets import imdb
 from keras.preprocessing import sequence
 
-from attention import Attention
+from attention import Position_Embedding, Attention
 
 max_features = 20000
 maxlen = 80
@@ -25,7 +25,7 @@ from keras.layers import *
 
 S_inputs = Input(shape=(None,), dtype='int32')
 embeddings = Embedding(max_features, 128)(S_inputs)
-# embeddings = Position_Embedding()(embeddings) #增加Position_Embedding能轻微提高准确率
+embeddings = Position_Embedding()(embeddings)  # 增加Position_Embedding能轻微提高准确率
 O_seq = Attention(8, 16)([embeddings, embeddings, embeddings])
 O_seq = GlobalAveragePooling1D()(O_seq)
 O_seq = Dropout(0.5)(O_seq)
@@ -33,9 +33,7 @@ outputs = Dense(1, activation='sigmoid')(O_seq)
 
 model = Model(inputs=S_inputs, outputs=outputs)
 # try using different optimizers and different optimizer configs
-model.compile(loss='binary_crossentropy',
-              optimizer='adam',
-              metrics=['accuracy'])
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 print('Train...')
 model.fit(x_train, y_train,
