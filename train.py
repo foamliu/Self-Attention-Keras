@@ -39,5 +39,4 @@ print('Train...')
 model.fit(x_train, y_train,
           batch_size=batch_size,
           epochs=5,
-          validation_data=(x_test, y_test),
-          verbose=2)
+          validation_data=(x_test, y_test))
