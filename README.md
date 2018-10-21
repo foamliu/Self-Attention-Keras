@@ -22,10 +22,10 @@ $ python imdb_attention.py
 
 ### 比较结果
 
-|算法|训练时间(每epoch)|Test 准确率|Test Loss|
-|---|---|---|---|
-|LSTM|115s|
-|双向LSTM|
+|算法|训练时间(每epoch)|Test 准确率|Test Loss|收敛所需Epoch数|
+|---|---|---|---|---|
+|LSTM|116s|0.8339|0.3815|2|
+|双向LSTM|299s|0.8468|0.3475|1|
 |CNN|
 |CNN LSTM|
 |预训练词向量(fasttext)|
