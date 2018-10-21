@@ -12,7 +12,7 @@ from keras.preprocessing.text import Tokenizer
 
 max_words = 1000
 batch_size = 32
-epochs = 5
+epochs = 10
 
 print('Loading data...')
 (x_train, y_train), (x_test, y_test) = reuters.load_data(num_words=max_words,
