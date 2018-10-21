@@ -17,5 +17,18 @@ IMDB影评倾向分类数据集，来自IMDB的25,000条影评，被标记为正
 
 ### 训练
 ```bash
-$ python train.py
+$ python imdb_attention.py
 ```
+
+### 比较结果
+
+|算法|训练时间(每epoch)|Test 准确率|Test Loss|
+|---|---|---|---|
+|LSTM|115s|
+|双向LSTM|
+|CNN|
+|CNN LSTM|
+|预训练词向量(fasttext)|
+|Transformer|
+
+
