@@ -27,7 +27,7 @@ lstm_output_size = 70
 
 # Training
 batch_size = 30
-epochs = 2
+epochs = 5
 
 '''
 Note:
