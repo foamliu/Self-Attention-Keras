@@ -1,15 +1,21 @@
+'''Trains a Bidirectional LSTM on the IMDB sentiment classification task.
+Output after 4 epochs on CPU: ~0.8146
+Time per epoch on CPU (Core i7): ~150s.
+'''
+
+from __future__ import print_function
 from __future__ import print_function
 
 import keras
 import numpy as np
 from keras.datasets import reuters
+from keras.layers import Dense, Dropout, Embedding, LSTM, Bidirectional
+from keras.models import Sequential
 from keras.preprocessing.text import Tokenizer
-
-from attention import Position_Embedding, Attention
 
 max_words = 1000
 batch_size = 32
-epochs = 10
+epochs = 5
 
 print('Loading data...')
 (x_train, y_train), (x_test, y_test) = reuters.load_data(num_words=max_words,
@@ -34,33 +40,19 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 print('y_train shape:', y_train.shape)
 print('y_test shape:', y_test.shape)
 
-from keras.models import Model
-from keras.layers import *
-
-print('Building model...')
-S_inputs = Input(shape=(None,), dtype='int32')
-embeddings = Embedding(max_words, 128)(S_inputs)
-embeddings = Position_Embedding()(embeddings)  # 增加Position_Embedding能轻微提高准确率
-O_seq = Attention(8, 16)([embeddings, embeddings, embeddings])
-O_seq = GlobalAveragePooling1D()(O_seq)
-O_seq = Dropout(0.5)(O_seq)
-O_seq = Dense(num_classes)(O_seq)
-O_seq = Activation('softmax')(O_seq)
-
-model = Model(inputs=S_inputs, outputs=O_seq)
+model = Sequential()
+model.add(Embedding(max_words, 128, input_length=maxlen))
+model.add(Bidirectional(LSTM(64)))
+model.add(Dropout(0.5))
+model.add(Dense(num_classes))
+model.add(Activation('softmax'))
 print(model.summary())
 
-model.compile(loss='categorical_crossentropy',
-              optimizer='adam',
-              metrics=['accuracy'])
+# try using different optimizers and different optimizer configs
+model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
 
 print('Train...')
-history = model.fit(x_train, y_train,
-                    batch_size=batch_size,
-                    epochs=epochs,
-                    verbose=1,
-                    validation_split=0.1)
-score = model.evaluate(x_test, y_test,
-                       batch_size=batch_size, verbose=1)
-print('Test score:', score[0])
-print('Test accuracy:', score[1])
+model.fit(x_train, y_train,
+          batch_size=batch_size,
+          epochs=4,
+          validation_data=[x_test, y_test])
