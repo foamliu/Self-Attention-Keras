@@ -47,9 +47,7 @@ from keras.layers import *
 
 print('Building model...')
 model = Sequential()
-model.add(Dense(512, input_shape=(max_words,)))
-model.add(Activation('relu'))
-model.add(Dropout(0.5))
+model.add(Embedding(max_words, 128))
 model.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
