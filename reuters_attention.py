@@ -3,9 +3,10 @@ from __future__ import print_function
 import keras
 import numpy as np
 from keras.datasets import reuters
+from keras.models import Sequential
 from keras.preprocessing.text import Tokenizer
 
-from attention import Position_Embedding, Attention
+from attention import Attention
 
 max_words = 1000
 batch_size = 32
@@ -34,20 +35,21 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 print('y_train shape:', y_train.shape)
 print('y_test shape:', y_test.shape)
 
-from keras.models import Model
 from keras.layers import *
 
 print('Building model...')
-S_inputs = Input(shape=(None,), dtype='int32')
-embeddings = Embedding(max_words, 128)(S_inputs)
-embeddings = Position_Embedding()(embeddings)  # 增加Position_Embedding能轻微提高准确率
-O_seq = Attention(8, 16)([embeddings, embeddings, embeddings])
-O_seq = GlobalAveragePooling1D()(O_seq)
-O_seq = Dropout(0.5)(O_seq)
-O_seq = Dense(num_classes)(O_seq)
-O_seq = Activation('softmax')(O_seq)
+model = Sequential()
+model.add(Dense(512, input_shape=(max_words,)))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
 
-model = Model(inputs=S_inputs, outputs=O_seq)
+# embeddings = Embedding(max_words, 128)(S_inputs)
+# embeddings = Position_Embedding()(embeddings)  # 增加Position_Embedding能轻微提高准确率
+model.add(Attention(8, 16)([embeddings, embeddings, embeddings]))
+model.add(GlobalAveragePooling1D())
+model.add(Dropout(0.5))
+model.add(Dense(num_classes))
+model.add(Activation('softmax'))
 print(model.summary())
 
 model.compile(loss='categorical_crossentropy',
