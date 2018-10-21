@@ -47,22 +47,24 @@ from keras.layers import *
 
 print('Building model...')
 model = Sequential()
-model.add(Embedding(max_words, 128))
+model.add(Dense(512, input_shape=(max_words,)))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
 model.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
+print(model.summary())
 
-# try using different optimizers and different optimizer configs
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-print('Train...')
-model.fit(x_train, y_train,
-          batch_size=batch_size,
-          epochs=5,
-          validation_data=(x_test, y_test))
-score, acc = model.evaluate(x_test, y_test,
-                            batch_size=batch_size)
-print('Test score:', score)
-print('Test accuracy:', acc)
+history = model.fit(x_train, y_train,
+                    batch_size=batch_size,
+                    epochs=epochs,
+                    verbose=1,
+                    validation_split=0.1)
+score = model.evaluate(x_test, y_test,
+                       batch_size=batch_size, verbose=1)
+print('Test score:', score[0])
+print('Test accuracy:', score[1])

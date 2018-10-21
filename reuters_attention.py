@@ -54,7 +54,6 @@ model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-print('Train...')
 history = model.fit(x_train, y_train,
                     batch_size=batch_size,
                     epochs=epochs,
