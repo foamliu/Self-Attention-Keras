@@ -38,7 +38,7 @@ from keras.models import Model
 from keras.layers import *
 
 S_inputs = Input(shape=(None,), dtype='int32')
-embeddings = Embedding(max_words, 512)(S_inputs)
+embeddings = Embedding(max_words, 128)(S_inputs)
 embeddings = Position_Embedding()(embeddings)  # 增加Position_Embedding能轻微提高准确率
 O_seq = Attention(8, 16)([embeddings, embeddings, embeddings])
 O_seq = GlobalAveragePooling1D()(O_seq)
