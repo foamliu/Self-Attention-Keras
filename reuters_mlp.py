@@ -3,11 +3,11 @@ on the Reuters newswire topic classification task.
 '''
 from __future__ import print_function
 
-import numpy as np
 import keras
+import numpy as np
 from keras.datasets import reuters
-from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
+from keras.models import Sequential
 from keras.preprocessing.text import Tokenizer
 
 max_words = 1000
@@ -44,6 +44,7 @@ model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
+print(model.summary())
 
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
