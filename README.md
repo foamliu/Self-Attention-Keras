@@ -33,8 +33,8 @@ $ python imdb_attention.py
 
 ![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/XunlianShijian.PNG)
 
-![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/ZhunQueDu.PNG)
+![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/Zhunquelv.PNG)
 
-![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/SuoxuEpoch.PNG)
+
 
 
