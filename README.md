@@ -31,4 +31,10 @@ $ python imdb_attention.py
 |预训练词向量(fasttext)|4s|0.8916|0.2763|7|
 |Transformer|8s|0.8432|0.3500|2|
 
+![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/XunlianShijian.PNG)
+
+![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/ZhunQueDu.PNG)
+
+![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/SuoxuEpoch.PNG)
+
 
