@@ -31,6 +31,10 @@ $ python imdb_attention.py
 |预训练词向量(fasttext)|4s|0.8916|0.2763|7|
 |Transformer|8s|0.8432|0.3500|2|
 
+### 结论
+
+最新很火的变形金刚模型(Transformer, 即多头自注意力) 在这个经典的小文本分类数据集上的表现，只是中等。
+
 ![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/XunlianShijian.PNG)
 
 ![image](https://github.com/foamliu/Self-Attention-Keras/raw/master/images/Zhunquelv.PNG)
